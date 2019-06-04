@@ -14,34 +14,39 @@ namespace AdventureGame
             "In the reckonings of most worlds, humans are the youngest of the common races, late to arrive on the world scene and short-lived in comparison to dwarves, elves, and dragons. Perhaps it is because of their shorter lives that they strive to achieve as much as they can in the years they are given. Or maybe they feel they have something to prove to the elder races, and that’s why they build their mighty empires on the foundation of conquest and trade. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.",
             "Whether united under the leadership of a mighty warlock or having fought to a standstill after years of conflict, orc and human tribes sometimes form alliances, joining forces into a larger horde to the terror of civilized lands nearby. When these alliances are sealed by marriages, half-orcs are born. Some half-orcs rise to become proud chiefs of orc tribes, their human blood giving them an edge over their full-blooded orc rivals. Some venture into the world to prove their worth among humans and other more civilized races. Many of these become adventurers, achieving greatness for their mighty deeds and notoriety for their barbaric customs and savage fury.",
         };
-        public string[] characterClass =
+        public static string[] characterClass =
         {
-            "Barbarian", "sorcerer",
-            "Druid", "Bard",
-            "Barbarian", "Cleric",
+            "Barbarian", "Bard","Cleric",
+            "Druid", 
+            "sorcerer",
         };
-        public string[] ClassDes =
-       {    "Barbarians: \n Barbarians come alive in the chaos of combat. They can enter a berserk state where rage takes over, giving them superhuman strength and resilience. A barbarian can draw on this reservoir of fury only a few times without resting, but those few rages are usually sufficient to defeat whatever threats arise.",
-            "Bard: \n The greatest strength of bards is their sheer versatility. Many bards prefer to stick to the sidelines in combat, using their magic to inspire their allies and hinder their foes from a distance. But bards are capable of defending themselves in melee if necessary, using their magic to bolster their swords and armor. Their spells lean toward charms and illusions rather than blatantly destructive spells. They have a wide-ranging knowledge of many subjects and a natural aptitude that lets them do almost anything well. Bards become masters of the talents they set their minds to perfecting, from musical performance to esoteric knowledge.",
-            "Cleric: \n Clerics combine the helpful magic of healing and inspiring their allies with spells that harm and hinder foes. They can provoke awe and dread, lay curses of plague or poison, and even call down flames from heaven to consume their enemies. For those evildoers who will benefit most from a mace to the head, clerics depend on their combat training to let them wade into melee with the power of the gods on their side.",
-            "Druid: \n Druid spells are oriented toward nature and animals—the power of tooth and claw, of sun and moon, of fire and storm. Druids also gain the ability to take on animal forms, and some druids make a particular study of this practice, even to the point where they prefer animal form to their natural form.",
-            "Sorcerer: \n Magic is a part of every sorcerer, suffusing body, mind, and spirit with a latent power that waits to be tapped. Some sorcerers wield magic that springs from an ancient bloodline infused with the magic of dragons. Others carry a raw, uncontrolled magic within them, a chaotic storm that manifests in unexpected ways.",  
+        public static string[] ClassDes =
+       {    "Barbarians:\nBarbarians come alive in the chaos of combat. They can enter a berserk state where rage takes over, giving them superhuman strength and resilience. A barbarian can draw on this reservoir of fury only a few times without resting, but those few rages are usually sufficient to defeat whatever threats arise.",
+            "Bard:\nThe greatest strength of bards is their sheer versatility. Many bards prefer to stick to the sidelines in combat, using their magic to inspire their allies and hinder their foes from a distance. But bards are capable of defending themselves in melee if necessary, using their magic to bolster their swords and armor. Their spells lean toward charms and illusions rather than blatantly destructive spells. They have a wide-ranging knowledge of many subjects and a natural aptitude that lets them do almost anything well. Bards become masters of the talents they set their minds to perfecting, from musical performance to esoteric knowledge.",
+            "Cleric:\nClerics combine the helpful magic of healing and inspiring their allies with spells that harm and hinder foes. They can provoke awe and dread, lay curses of plague or poison, and even call down flames from heaven to consume their enemies. For those evildoers who will benefit most from a mace to the head, clerics depend on their combat training to let them wade into melee with the power of the gods on their side.",
+            "Druid:\nDruid spells are oriented toward nature and animals—the power of tooth and claw, of sun and moon, of fire and storm. Druids also gain the ability to take on animal forms, and some druids make a particular study of this practice, even to the point where they prefer animal form to their natural form.",
+            "Sorcerer:\nMagic is a part of every sorcerer, suffusing body, mind, and spirit with a latent power that waits to be tapped. Some sorcerers wield magic that springs from an ancient bloodline infused with the magic of dragons. Others carry a raw, uncontrolled magic within them, a chaotic storm that manifests in unexpected ways.",  
         };
-      
+
+        String one = "[1]";
+        String two = "[2]";
+        String n = "\n";
         //Dynamic output from console
         static string Dialogue;
         //dynamic inut from player
         static string Choice;
         //character name
         static string characterName = "";
+        public static string plName;
+        public static string plRace;
+        public static string plClass;
         //constructor
         public Character()
         {
-            string[] character ={
-
-            } ;
-            PlayerName();
-            ChooseRace();
+            
+            plName = PlayerName();
+            plRace = ChooseRace();
+            string plClass = ChooseClass();
             Item Gold = new Item();
             Gold.name = "Gold";
             Gold.description = "200";
@@ -50,7 +55,7 @@ namespace AdventureGame
         //ask player for a name, and save it
         public static string PlayerName()
         {
-            Dialogue = "\n Brave Patron of the arts! To What do ye call yeself?";
+            Dialogue = "\n Brave Patron of the Computer arts! To What do ye call yeself?";
             Animationsand_effects.TypeWriter(Dialogue, "blue");
             characterName = Console.ReadLine();
             Dialogue = " I bid ye welcome ";
@@ -62,7 +67,7 @@ namespace AdventureGame
             return characterName;
         }
         //chooe race dialogue
-        public static void ChooseRace()
+        public static string ChooseRace()
         {
             Console.Clear();
             String Input = "";
@@ -75,12 +80,52 @@ namespace AdventureGame
             if (Input == "1") { Character.Human(); }
             if (Input == "2") { Character.Elf(); }
             if (Input == "3") { Character.Orc(); }
-
+            return Choice;
 
         }
         public static string ChooseClass()
         {
-            Dialogue = " can choose between two Classes";
+            Console.Clear();
+            Dialogue = " can choose between two Classes:\n";
+            Console.Write(plName);
+            Animationsand_effects.TypeWriter(Dialogue, "magenta");
+            if (plRace == "Orc")
+            {
+                Console.WriteLine("[1]" + characterClass[0] );
+                Console.WriteLine(ClassDes[0]);
+                Console.WriteLine("[2]" + characterClass[2]);
+                Console.WriteLine(ClassDes[2]);
+            }
+            if (plRace == "Elf")
+            {
+                Console.WriteLine("[1]" + characterClass[3]);
+                Console.WriteLine(ClassDes[3]);
+                Console.WriteLine("\n" + "[2]" + characterClass[1]);
+                Console.WriteLine(ClassDes[1]);
+            }
+            if (plRace == "Human")
+            {
+                Console.WriteLine("[1]"+characterClass[0] );
+                Console.WriteLine(ClassDes[0]);
+                Console.WriteLine("[2]" + characterClass[4]);
+                Console.WriteLine(ClassDes[4]);
+            }
+            Choice = ClassChoice();
+            
+            return Choice;
+        }
+        public static string ClassChoice() {
+            Dialogue = " \n So Which shall Ye Be? \n type in you choice.";
+            Animationsand_effects.TypeWriter(Dialogue, "magenta");
+            Choice = Console.ReadLine();
+            if (Choice == characterClass[0]) {  Choice  = characterClass[0]; }
+            if (Choice == characterClass[1]) {  Choice = characterClass[1]; }
+            if (Choice == characterClass[2]) { Choice = characterClass[2]; }
+            if (Choice == characterClass[3]) { Choice = characterClass[3]; }
+            if (Choice == characterClass[4]) {  Choice = characterClass[4]; }
+            Dialogue = " You have Chosen: ";
+            Animationsand_effects.TypeWriter(Dialogue, "magenta");
+            Console.WriteLine(Choice);
             return Choice;
         }
         
@@ -107,9 +152,7 @@ namespace AdventureGame
                       mrf           '\_-,");
             Dialogue = characterDes[0];
             Console.Write(Dialogue);
-            Dialogue = "Do you wish to choose this race? [1] Yes [2] No";
-            Animationsand_effects.TypeWriter(Dialogue, "magenta");
-            Choice = Console.ReadLine();
+            Choice = DoYouChoose();
             if (Choice == "1")
             {
                 Choice = "Elf";
@@ -144,9 +187,15 @@ namespace AdventureGame
     jgs  /____/\____\");
             Dialogue = characterDes[1];
             Console.Write(Dialogue);
-            Dialogue = " Do you wish to choose this race? [1] Yes [2] No";
-            Animationsand_effects.TypeWriter(Dialogue, "magenta");
-            Choice = Console.ReadLine();
+            Choice = DoYouChoose();
+            if (Choice == "1")
+            {
+                Choice = "Human";
+            }
+            else
+            {
+                ChooseRace();
+            }
             return Choice;
         }
         public static string Orc()
@@ -173,9 +222,23 @@ namespace AdventureGame
 ");
             Dialogue = characterDes[2];
             Console.Write(Dialogue);
-            Dialogue = " Do you sih to choose this race? [1] Yes [2] No";
+           Choice = DoYouChoose();
+            if (Choice == "1")
+            {
+                Choice = "Orc";
+            }
+            else
+            {
+                ChooseRace();
+            }
+            return Choice;
+        }
+        public static string DoYouChoose()
+        {
+            Dialogue = " Do you sih to choose this? [1] Yes [2] No";
             Animationsand_effects.TypeWriter(Dialogue, "magenta");
             Choice = Console.ReadLine();
+            
             return Choice;
         }
     }
